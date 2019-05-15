@@ -1,9 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar, ActivityIndicator, View } from 'react-native';
 import { Provider } from 'react-redux';
-import Router from './router/Router'
-import store from './store'
-import {ScreenOrientation} from 'expo'
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import Router from './router/Router';
+import {ScreenOrientation} from 'expo';
+import configureStore from './store'
+
+const { persistor, store } = configureStore();
 
 export default class App extends React.Component {
    changeScreenOrientation() {
@@ -14,12 +17,20 @@ export default class App extends React.Component {
     this.changeScreenOrientation()
   }
   
+  renderLoading = () => {
+    <View style = {styles.container}>
+      <ActivityIndicator size = 'large'/>
+    </View>
+  }
+
   render() {
     
     return (
       <Provider store={store}>
+      <PersistGate persistor = {persistor} loading = {this.renderLoading()}>
       <StatusBar hidden/>
         <Router/>
+        </PersistGate>
       </Provider>
     );
   }
