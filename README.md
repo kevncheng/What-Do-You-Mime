@@ -6,4 +6,4 @@ Test this game out on expo https://expo.io/@late4tea/What_Do_You_Mime
 
 ![](assets/IMG_1424.jpg)
 
-Built with React Native and Expo.
+Built with React Native, Expo and React Native Router Flux.
