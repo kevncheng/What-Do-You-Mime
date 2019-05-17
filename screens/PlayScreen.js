@@ -12,11 +12,7 @@ import { settingUpdate, newGame } from "../actions";
 const { width, height } = Dimensions.get("window");
 
 class PlayScreen extends Component {
-  state = {
-    millisecondsLeft: 0,
-    pauseTime: 0,
-    isPaused: false
-  }
+
   endTurn = () => {
     const { firstTurn, gameRound, rounds, settingUpdate } = this.props;
     let value = !firstTurn;
