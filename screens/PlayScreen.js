@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Vibration, Dimensions } from "react-native";
+import { View, Text, Vibration, Dimensions, Alert } from "react-native";
 import { connect } from "react-redux";
 import _ from "lodash";
 import { Button } from "react-native-elements";
@@ -7,11 +7,16 @@ import TimerCountdown from "react-native-timer-countdown";
 import { pointChange } from "../actions";
 import Points from "../components/Points";
 import { Actions } from "react-native-router-flux";
-import { settingUpdate } from "../actions";
+import { settingUpdate, newGame } from "../actions";
 
 const { width, height } = Dimensions.get("window");
 
 class PlayScreen extends Component {
+  state = {
+    millisecondsLeft: 0,
+    pauseTime: 0,
+    isPaused: false
+  }
   endTurn = () => {
     const { firstTurn, gameRound, rounds, settingUpdate } = this.props;
     let value = !firstTurn;
@@ -25,24 +30,28 @@ class PlayScreen extends Component {
     }
   };
 
-  countDown = (milliseconds) => {
-    if(milliseconds < 11) {
-      return true
-    } return false
+  onExit = () => {
+    Actions.home()
+    this.props.newGame()
   }
 
+
   render() {
-    const { parentContainer,timerStyle,timerContainer } = styles;
+    const { parentContainer,timerStyle,timerContainer, exitButtonStyle } = styles;
     return (
       <View style = {parentContainer}>
-
+        <Button 
+          type = 'clear' 
+          icon = {{name: 'exit-to-app', color: 'rgba(0, 0, 0, 0.5)', size: 30}}
+          containerStyle = {exitButtonStyle}
+          onPress = {() => this.onExit({type:'reset'})}
+          />
         <Points />
         <View style = {timerContainer}> 
           <TimerCountdown
             initialMilliseconds={1000 * this.props.time}
-            onExpire={this.endTurn}
-            style={[timerStyle,countDown? styles.countDownStyle : styles.countStyle ]}
-            onTick = {this.countDown}
+            onExpire={()=> this.endTurn()}
+            style={timerStyle}
           />
         </View>          
       </View>
@@ -69,11 +78,8 @@ const styles = {
   pointStyle: {
     position:'absolute', left: 0, right: 0, bottom: 0, top: 0,justifyContent: 'center', alignItems: 'center'
   },
-  countDownStyle : {
-    color: 'red'
-  },
-  countStyle : {
-    color: 'black'
+  exitButtonStyle: {
+    position: 'absolute', alignSelf:'flex-end',zIndex: 2
   }
 };
 
@@ -84,5 +90,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { pointChange, settingUpdate }
+  { pointChange, settingUpdate, newGame }
 )(PlayScreen);
