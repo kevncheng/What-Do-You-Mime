@@ -18,7 +18,6 @@ export const word = [
 
 export const words = [
   "apple",
-  "penguinn",
   "banana",
   "crab",
   "dance",
@@ -82,7 +81,7 @@ export const words = [
   "monkey",
   "hopscotch",
   "mosquito",
-  "toothbrush",
+  "tooth brush",
   "ring",
   "ping pong",
   "snowball",
@@ -96,8 +95,7 @@ export const words = [
   "piano",
   "lipstick",
   "salute",
-  "hula",
-  "hoop",
+  "hula hoop",
   "penguin",
   "banana",
   "peel",
@@ -149,7 +147,9 @@ export const words = [
   "wink",
   "tree",
   "Spider Man",
-  "think"
+  "think",
+  "huddle",
+  "car pool"
 ];
 
 export const hardWords = [
