@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
-import { Button, Input, Header } from 'react-native-elements';
+import { View, TouchableWithoutFeedback, Keyboard, ScrollView, Alert } from 'react-native';
+import { Button, Input } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { settingUpdate } from '../actions';
@@ -12,8 +12,10 @@ class SettingsScreen extends Component {
         passError: ''
     };
 
-    renderError = () => {
-        const { time, rounds } = this.props;
+
+    onPressPlay = () => {
+        const { time, rounds, MasterWordList } = this.props;
+        // Input Value Check
         if (time < 15 || rounds < 1) {
             let timeError = time < 15 ? 'Please Enter A Value Of Atleast 15 Seconds' : '';
             this.setState({ timeError });
@@ -21,8 +23,21 @@ class SettingsScreen extends Component {
             let roundError = rounds < 1 ? 'Please Enter A Value of Alteast 1 Round' : '';
             this.setState({ roundError });
         } else {
-            this.setState({ timeError: '', roundError: '', passError: '' });
-            Actions.interval({ type: 'reset' });
+            // Check if there are enough words, if so proceed to game, if not proceed to select word screen
+            if ( MasterWordList.length < 10){
+                Alert.alert(
+                    'There are not enough words selected',
+                    'Please add atleast 10 words',
+                    [
+                        {text: 'OK', onPress: () => {
+                            Actions.selectWords({type:'reset'})
+                    }}
+                    ],
+                  );
+            } else {
+                Actions.interval({ type: 'reset' });
+            }
+            
         }
     };
 
@@ -97,7 +112,7 @@ class SettingsScreen extends Component {
                     <Button
                         title='Play!'
                         titleStyle={{ fontWeight: 'bold' }}
-                        onPress={this.renderError}
+                        onPress={this.onPressPlay}
                         buttonStyle={playButtonStyle}
                     />
                 </View>
@@ -138,8 +153,8 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-    const { time, rounds, team, passes } = state.setting;
-    return { time, rounds, team, passes };
+    const { time, rounds, team, passes, selected, MasterWordList } = state.setting;
+    return { time, rounds, team, passes, selected, MasterWordList };
 };
 
 export default connect(
