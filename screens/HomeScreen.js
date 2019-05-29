@@ -1,40 +1,79 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { appClosed } from '../actions';
+import { appClosed, resetWords } from '../actions';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class HomeScreen extends Component {
     componentDidMount = () => {
-      this.props.appClosed();
+        this.props.appClosed();
     };
-    
+
+    onPressSettings = () => {
+        Alert.alert(
+            'Reset list of words?',
+            '',
+            [
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        this.props.resetWords();
+                    }
+                },
+                {
+                    text: 'Cancel',
+                    onPress: () => {},
+                    style: 'cancel'
+                },
+                ,
+            ],
+            { cancelable: false }
+        );
+    };
+
     render() {
-        const { gameTitle, secondaryTitle, buttonStyle, titleContainer, container } = styles;
+        const {
+            gameTitle,
+            secondaryTitle,
+            buttonStyle,
+            titleContainer,
+            parentContainer,
+            settingIconContainer
+        } = styles;
         return (
-            <View style={container}>
+            <View style={parentContainer}>
+                <Icon
+                    containerStyle={settingIconContainer}
+                    name='settings'
+                    size={30}
+                    onPress={this.onPressSettings}
+                />
                 <View style={titleContainer}>
                     <Text style={gameTitle}>WHAT DO YOU </Text>
                     <Text style={[gameTitle, secondaryTitle]}>"MIME"</Text>
                 </View>
                 <View style={buttonStyle}>
-                    {/* <View>
+                    <View>
                         <Button
                             title='Add Words'
                             titleStyle={{ fontWeight: 'bold' }}
-                            onPress={()=> {Actions.addWords()}}
+                            icon={{ name: 'add', color: 'white' }}
+                            iconRight
+                            onPress={() => {
+                                Actions.selectWords();
+                            }}
                         />
-                    </View> */}
+                    </View>
 
                     <View>
                         <Button
                             title='PLAY'
                             titleStyle={{ fontWeight: 'bold' }}
                             onPress={() => Actions.settings()}
-                            icon = {{name: 'play-arrow', color:'white'}}
+                            icon={{ name: 'play-arrow', color: 'white' }}
                             iconRight
                         />
                     </View>
@@ -45,7 +84,7 @@ class HomeScreen extends Component {
 }
 
 const styles = {
-    container: {
+    parentContainer: {
         flex: 1,
         alignContent: 'center',
         justifyContent: 'center',
@@ -68,7 +107,16 @@ const styles = {
         flex: 1,
         justifyContent: 'space-evenly',
         flexDirection: 'row'
+    },
+    settingIconContainer: {
+        position: 'absolute',
+        top: 8,
+        right: 8,
+        zIndex: 1
     }
 };
 
-export default connect(null,{ appClosed })(HomeScreen);
+export default connect(
+    null,
+    { appClosed, resetWords }
+)(HomeScreen);
