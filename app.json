@@ -1,14 +1,14 @@
 {
   "expo": {
     "name": "What Do You Mime?",
-    "slug": "What_Do_You_Mime?",
+    "slug": "What_Do_You_Mime",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
     "splash": {
@@ -23,7 +23,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.private.WhatDoYouMime"
+    },
+    "android": {
+      "package": "com.private.WhatDoYouMime"
+    },
+    "description" : "A reverse charade party game. In this game, you are split into two teams. Each team select a guesser(everyone gets a turn guessing) and the rest of the team act out the words. "
   }
 }

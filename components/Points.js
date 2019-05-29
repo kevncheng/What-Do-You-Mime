@@ -41,7 +41,7 @@ class Points extends Component {
     this.setState({ amountPassed: amountPassed + 1 });
     if (amountPassed >= this.props.passes) {
       const { TeamOnePoints, TeamTwoPoints, firstTurn } = this.props;
-      if (!firstTurn) {
+      if (firstTurn) {
         let value = parseInt(TeamOnePoints) - 1;
         this.props.settingUpdate({ prop: "TeamOnePoints", value });
       } else {
@@ -54,7 +54,7 @@ class Points extends Component {
   onCorrectPressed = () => {
     this.generateWord();
     const { TeamOnePoints, TeamTwoPoints, firstTurn } = this.props;
-    if (!firstTurn) {
+    if (firstTurn) {
       let value = parseInt(TeamOnePoints) + 1;
       this.props.settingUpdate({ prop: "TeamOnePoints", value });
     } else {
@@ -65,7 +65,7 @@ class Points extends Component {
 
   render() {
     const { TeamOnePoints, TeamTwoPoints } = this.props;
-    const { scoreContainer, buttonContainer, auxStyle, wordStyle,wordContainer } = styles;
+    const { buttonContainer, auxStyle, wordStyle,wordContainer,teamPointsContainer } = styles;
     return (
       <View style = {{flex:1, flexDirection:'column'}}>
         
@@ -88,11 +88,11 @@ class Points extends Component {
           titleStyle = {{position:'absolute',right: 25,color:'rgba(0, 0, 0, 0.1)'}}
           buttonStyle={[buttonContainer, { right: 0 }]}
         />
-        <View style = {{flexDirection:'row',justifyContent:'space-evenly'}}>
+        <View style = {teamPointsContainer}>
             <Text style={auxStyle}>Team One:{TeamOnePoints}</Text>
             <Text style={auxStyle}>Team Two:{TeamTwoPoints}</Text>
         </View>
-          <Text style={auxStyle}>Passed Left: {this.passesAvailable()} </Text>
+          <Text style={auxStyle}>Passes Left: {this.passesAvailable()} </Text>
           <View style = {wordContainer}>
             <Text style = {wordStyle}>{this.state.playWord}</Text>
             </View>
@@ -125,6 +125,9 @@ const styles = {
     top: 0,
     right: 0,
     left: 0,
+  },
+  teamPointsContainer: {
+    flexDirection:'row',justifyContent:'space-evenly'
   }
 };
 

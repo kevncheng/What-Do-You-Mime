@@ -33,11 +33,11 @@ class WinScreen extends Component {
         </View>
         <View style={pointContainer}>
           <View style = {{flex:1}}>
-            <Text style={[importantText,{fontSize:SCREEN_WIDTH * 0.05}]}>Team One: </Text>
+            <Text style={[importantText,{fontSize:width * 0.05}]}>Team One: </Text>
             <Text style={importantText}>{TeamOnePoints} </Text>
           </View>
           <View style = {{flex:1}}>
-            <Text style={[importantText,{fontSize:SCREEN_WIDTH * 0.05}]}>Team Two:  </Text>
+            <Text style={[importantText,{fontSize:width * 0.05}]}>Team Two:  </Text>
             <Text style={importantText}>{TeamTwoPoints} </Text>
           </View>
           </View>
