@@ -86,10 +86,11 @@ class CreateWordListScreen extends Component {
                     errorStyle={{ position: 'absolute', bottom: -20 }}
                     errorMessage={addWordsError}
                 />
-
-                <ScrollView style={{ flex: 3 }}>
+                <View style={{ flex: 3 }}>
+                <ScrollView style = {{flex : 1}}>
                     <WordList words={words} handlePress={this.onPressDeleteWord} />
                 </ScrollView>
+                </View>
             </View>
         );
     }

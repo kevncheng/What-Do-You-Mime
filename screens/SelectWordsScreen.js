@@ -63,8 +63,8 @@ class SelectWordsScreen extends Component {
                     />
                 </View>
                 <Divider/>
-                <View style={{ flex: 4, justifyContent: 'flex-start' }}>
-                    <ScrollView style={{ flex: 1 }}>
+                <View style={{ flex: 3, zIndex: 1}}>
+                    <ScrollView >
                         <ListItem
                             title='Default Words'
                             checkBox={{
