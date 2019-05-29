@@ -1,26 +1,45 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { LinearGradient } from 'expo';
+import { View, Text, Animated, Image, Dimensions, ActivityIndicator } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { Icon, CheckBox } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { words } from '../words'
+import {openFirstTime, selectWordList, resetWords } from '../actions'
+
+const { width, height } = Dimensions.get('window');
 
 class SplashScreen extends Component {
+    openFirst = (title,words) => {
+        const { selectWordList, openFirstTime, resetWords } = this.props;
+        selectWordList({title,words})
+        resetWords()
+        openFirstTime()
+    }
 
-  render() {
-    return (
-      <View style = {{flex:1}}>
-        <View style={{ backgroundColor: 'orange', flex: 1 }} />
-        <LinearGradient
-          colors={['rgba(0,0,0,0.8)', 'transparent']}
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            height: 300,
-          }}
-        />
-      </View>
-    );
-  }
+    componentDidMount = async () => {
+        const { firstOpen} = this.props;
+            if( firstOpen ) {
+                 await this.openFirst('Default Words', words)
+            }
+            setTimeout(() => Actions.home({ type: 'reset' }), 500)
+    }
+    render() {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignSelf:'center' }}>
+                <ActivityIndicator size ='large' />
+                <View style = {{positon:'abosulte', top: 0}}>
+                {/* Preload Icons */}
+                  <Icon name = 'add' color = 'rgba(0, 0, 0, 0)' size = {0}/>
+                  <CheckBox  size = {0} containerStyle = {{backgroundColor:'rgba(0, 0, 0, 0)', position: 'absolute', top : 2000}}/>
+                </View>
+            </View>
+        );
+    }
 }
 
-export default SplashScreen;
+const mapStateToProps = state => {
+    const { firstOpen } = state.setting;
+    return { firstOpen };
+}
+
+export default connect(mapStateToProps,{openFirstTime, selectWordList, resetWords})(SplashScreen);
