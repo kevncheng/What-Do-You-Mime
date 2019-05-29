@@ -27,8 +27,24 @@ class PlayScreen extends Component {
   };
 
   onExit = () => {
-    Actions.home()
-    this.props.newGame()
+    Alert.alert(
+      'Are you sure you want to exit the game?',
+      '',
+      [
+          {text: 'OK', onPress: () => {
+            Actions.home({type:'reset'})
+            this.props.newGame()
+      }},
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        ,
+      ],
+      {cancelable: false},
+    );
+    
   }
 
 
