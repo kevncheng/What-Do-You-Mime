@@ -16,35 +16,7 @@ class SelectWordsScreen extends Component {
         resetWords();
     };
 
-    onDeleteSet = title => {
-        const { unselectWordList, deleteWordList } = this.props;
-        Alert.alert(
-            'Are you sure you want to delete',
-            `'${title}' ?`,
-            [
-                {
-                    text: 'OK',
-                    onPress: () => {
-                        unselectWordList({ title, words });
-                        deleteWordList({ title });
-                    }
-                },
-                {
-                    text: 'Cancel',
-                    onPress: () => {},
-                    style: 'cancel'
-                },
-                ,
-            ],
-            { cancelable: false }
-        );
-    };
-
     render() {
-        const { selected, wordList, CharadeWords, MasterWordList } = this.props;
-        console.log(MasterWordList);
-        console.log('Words in play:' + CharadeWords);
-
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row' }}>
@@ -90,7 +62,6 @@ class SelectWordsScreen extends Component {
                             wordList={wordList}
                             handlePress={this.onCheckBoxClicked}
                             checkSelect={selected}
-                            deleteSet={this.onDeleteSet}
                         />
                     </ScrollView>
                 </View>

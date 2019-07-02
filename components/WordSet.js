@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
-import _ from 'lodash'
+import _ from 'lodash';
+import { Actions } from 'react-native-router-flux';
 
-const WordSet = ({ wordList, handlePress, checkSelect, deleteSet }) => {
+const WordSet = ({ wordList, handlePress, checkSelect }) => {
     return (
         <View>
             {_.map(wordList, function(e, i) {
@@ -11,10 +12,12 @@ const WordSet = ({ wordList, handlePress, checkSelect, deleteSet }) => {
                     <View key={i}>
                         <ListItem
                             title={e.title}
-                            onLongPress = {() => deleteSet(e.title)}
+                            onPress={() =>
+                                Actions.createWords({ words: e.words, title: e.title, edit: true })
+                            }
                             checkBox={{
                                 checked: Boolean(checkSelect[e.title]),
-                                onPress: () => handlePress(e.title,e.words)
+                                onPress: () => handlePress(e.title, e.words)
                             }}
                         />
                         <Divider />

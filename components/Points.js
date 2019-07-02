@@ -141,7 +141,6 @@ const mapStateToProps = state => {
     firstTurn,
     CharadeWords
   } = state.setting;
-  console.log({ CharadeWords: CharadeWords.length });
 
   return {
     time,

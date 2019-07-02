@@ -18,7 +18,6 @@ class PlayScreen extends Component {
     let value = !firstTurn;
     settingUpdate({ prop: "firstTurn", value });
     Vibration.vibrate(1000);
-    console.log(gameRound);
     if (parseInt(gameRound) === rounds * 2) {
       Actions.win({ type: "reset" });
     } else {

@@ -45,12 +45,12 @@ class HomeScreen extends Component {
         } = styles;
         return (
             <View style={parentContainer}>
-                <Icon
+                {/* <Icon
                     containerStyle={settingIconContainer}
                     name='settings'
                     size={30}
                     onPress={this.onPressSettings}
-                />
+                /> */}
                 <View style={titleContainer}>
                     <Text style={gameTitle}>WHAT DO YOU </Text>
                     <Text style={[gameTitle, secondaryTitle]}>"MIME"</Text>
