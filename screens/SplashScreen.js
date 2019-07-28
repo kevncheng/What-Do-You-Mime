@@ -9,18 +9,14 @@ import {openFirstTime, selectWordList, resetWords } from '../actions'
 const { width, height } = Dimensions.get('window');
 
 class SplashScreen extends Component {
-    openFirst = (title,words) => {
-        const { selectWordList, openFirstTime, resetWords } = this.props;
-        selectWordList({title,words})
-        resetWords()
-        openFirstTime()
-    }
+    // openFirst = (title,words) => {
+    //     const { selectWordList, openFirstTime, resetWords } = this.props;
+    //     selectWordList({title,words})
+    //     resetWords()
+    //     openFirstTime()
+    // }
 
-    componentDidMount = async () => {
-        const { firstOpen} = this.props;
-            if( firstOpen ) {
-                 await this.openFirst('Default Words', words)
-            }
+    componentDidMount = () => {
             setTimeout(() => Actions.home({ type: 'reset' }), 500)
     }
     render() {

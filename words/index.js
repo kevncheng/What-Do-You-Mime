@@ -1,21 +1,3 @@
-export const word = [
-  "Apple",
-  "Frog",
-  "Candy",
-  "banana",
-  "crab",
-  "dance",
-  "skip",
-  "jumping",
-  "jack",
-  "shark",
-  "chicken",
-  "alligator",
-  "chair",
-  "robot",
-  "head"
-];
-
 export const words = [
   "apple",
   "banana",

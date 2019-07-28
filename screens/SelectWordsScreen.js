@@ -17,6 +17,7 @@ class SelectWordsScreen extends Component {
     };
 
     render() {
+        const { selected, wordList, CharadeWords, MasterWordList } = this.props;
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row' }}>
@@ -40,7 +41,7 @@ class SelectWordsScreen extends Component {
                         <ListItem
                             title='Default Words'
                             checkBox={{
-                                checked: Boolean(selected['Default Words']),
+                                checked: Boolean(this.props.selected['Default Words']),
                                 onPress: () => {
                                     this.onCheckBoxClicked('Default Words', words);
                                 }
@@ -50,7 +51,7 @@ class SelectWordsScreen extends Component {
                         <ListItem
                             title='Hard Words'
                             checkBox={{
-                                checked: Boolean(selected['Hard Words']),
+                                checked: Boolean(this.props.selected['Hard Words']),
                                 onPress: () => {
                                     this.onCheckBoxClicked('Hard Words', hardWords);
                                 }
@@ -59,9 +60,9 @@ class SelectWordsScreen extends Component {
                         <Divider />
 
                         <WordSet
-                            wordList={wordList}
+                            wordList={this.props.wordList}
                             handlePress={this.onCheckBoxClicked}
-                            checkSelect={selected}
+                            checkSelect={this.props.selected}
                         />
                     </ScrollView>
                 </View>

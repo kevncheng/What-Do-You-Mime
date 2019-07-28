@@ -7,7 +7,7 @@ import rootReducer from '../reducers';
 
 
 const persistConfig = {
-    key: 'v1.21',
+    key: 'v1.3',
     storage,
     transforms: [createWhitelistFilter('setting', ['CharadeWords','MasterWordList','selected','wordList', 'firstOpen'])],
   };
